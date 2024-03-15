@@ -16,11 +16,10 @@ class Calculator{
         this.operator = '';
         
         this.actualizarUI();
-        
     }
 
+    //Resetear los elementos de la interfaz gráfica
     actualizarUI(){
-        //Resetear los elementos de la interfaz gráfica
         this.operand1Element.textContent = this.operand1 + this.operator;
         this.operand2Element.textContent = this.operand2;
     }
@@ -41,12 +40,29 @@ class Calculator{
         this.actualizarUI();
     }
 
+    asignarOperador(operator){
+        this.operator = operator;
+        this.operand1 = this.operand2;
+        this.operand2 = 0;
+
+        this.actualizarUI();
+
+    }
+
+    resultado(){
+        switch(operator){
+            
+        }
+    }
+
 }
 
-const operand1Element = document.querySelector(["[data-operand-1]"]);
-const operand2Element = document.querySelector(["[data-operand-2]"]);
-const clearButton = document.querySelector(["[data-clear-button]"]);
+const operand1Element = document.querySelector("[data-operand-1]");
+const operand2Element = document.querySelector("[data-operand-2]");
+const clearButton = document.querySelector("[data-clear-button]");
+const equalButton = document.querySelector("[data-equal]");
 const numberButtons = document.querySelectorAll("[data-number]"); //Array que recoge todos los elementos de botón numérico
+const operatorButtons = document.querySelectorAll("[data-operator]");  //Array que recoge todos los elementos de botón de operador
 
 //Creamos el objeto calculator a partir de la clase Calculator
 const calculadora = new Calculator(operand1Element, operand2Element);
@@ -60,4 +76,14 @@ numberButtons.forEach((button)=>{
     button.addEventListener("click",()=>{
         calculadora.agregarNumero(button.textContent);
     });
+});
+
+operatorButtons.forEach((button)=>{
+    button.addEventListener("click",()=>{
+        calculadora.asignarOperador(button.textContent);
+    });
+});
+
+equalButton.addEventListener("click", () =>{
+    calculadora.resultado();
 });
